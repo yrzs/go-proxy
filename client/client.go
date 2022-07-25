@@ -12,11 +12,13 @@ import (
 
 var (
 	host       string
+	localHost       string
 	localPort  int
 	remotePort int
 )
 
 func init() {
+	flag.StringVar(&localHost, "lh", "127.0.0.1", "local host ip")
 	flag.StringVar(&host, "h", "127.0.0.1", "remote server ip")
 	flag.IntVar(&localPort, "l", 8080, "the local port")
 	flag.IntVar(&remotePort, "r", 3333, "remote server port")
@@ -158,7 +160,7 @@ func handle(server *server) {
 	go server.Read(ctx)
 	go server.Write(ctx)
 
-	localConn, err := net.Dial("tcp", fmt.Sprintf("127.0.0.1:%d", localPort))
+	localConn, err := net.Dial("tcp", fmt.Sprintf("localHost:%d", localPort))
 	if err != nil {
 		panic(err)
 	}
