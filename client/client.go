@@ -12,7 +12,7 @@ import (
 
 var (
 	host       string
-	localHost       string
+	localHost  string
 	localPort  int
 	remotePort int
 )
@@ -160,7 +160,7 @@ func handle(server *server) {
 	go server.Read(ctx)
 	go server.Write(ctx)
 
-	localConn, err := net.Dial("tcp", fmt.Sprintf("localHost:%d", localPort))
+	localConn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", localHost, localPort))
 	if err != nil {
 		panic(err)
 	}
